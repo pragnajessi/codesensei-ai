@@ -1,0 +1,16 @@
+# secrets
+.env
+backend/.env
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# os / editor
+.DS_Store
+.vscode/
+
+# docker
+*.log

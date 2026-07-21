@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CodeSensei.ai — Your AI Tutor</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="bg-aurora" aria-hidden="true"></div>
+
+<!-- floating 3D mascot dock (Clean 3D CSS Spinning Cube) -->
+<div id="mascot-dock" class="mascot-dock" aria-hidden="true">
+  <div id="mascot-fallback" class="mascot-fallback">
+    <div class="cube-scene">
+      <div class="cube">
+        <span class="face front"></span>
+        <span class="face back"></span>
+        <span class="face left"></span>
+        <span class="face right"></span>
+        <span class="face top"></span>
+        <span class="face bottom"></span>
+      </div>
+      <div class="cube-glow"></div>
+    </div>
+  </div>
+</div>
+
+<header class="app-header">
+  <div class="brand">
+    <span class="brand-icon">🌸</span>
+    <div class="brand-text">
+      <span class="brand-name">CodeSensei<span class="brand-dot-ai">.ai</span></span>
+    </div>
+    <span class="brand-badge">✨ Your AI Tutor</span>
+  </div>
+
+  <div class="header-right">
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+      <span class="theme-icon sun">☀️</span>
+      <span class="theme-icon moon">🌙</span>
+      <span class="theme-knob"></span>
+    </button>
+    <span id="status-pill" class="status-pill">
+      <span class="status-dot"></span> Streaming Ready
+    </span>
+  </div>
+</header>
+
+<main class="dojo">
+
+  <!-- LEFT / TOP: input panel -->
+  <div class="tilt-wrap">
+    <section class="panel glass input-panel" aria-label="Code input">
+      <div class="panel-title-row">
+        <h2><span class="title-icon">&lt;/&gt;</span> Input Code</h2>
+        <div class="mode-toggle" role="tablist" aria-label="Session mode">
+          <button class="mode-btn active" data-mode="explain" role="tab" aria-selected="true">
+            ✨ Tutor Mode
+          </button>
+          <button class="mode-btn" data-mode="debug" role="tab" aria-selected="false">
+            🐛 Debug Mode
+          </button>
+        </div>
+      </div>
+
+      <label class="field-label" id="input-title" for="code-input">Paste your code below:</label>
+      <textarea id="code-input" class="code-area" spellcheck="false"
+        placeholder="def my_function():&#10;    # Paste your complex or buggy code here..."></textarea>
+
+      <div id="error-field" class="error-field hidden">
+        <label class="field-label" for="error-input">Paste the error / stack trace:</label>
+        <textarea id="error-input" class="code-area error-area" spellcheck="false"
+          placeholder="Traceback (most recent call last):&#10;  ..."></textarea>
+      </div>
+
+      <button id="analyze-btn" class="analyze-btn">
+        <span id="analyze-btn-text">🚀 Ask CodeSensei</span> <span class="btn-sparkle">✨</span>
+      </button>
+      <p id="input-hint" class="hint">Sensei is patient — but code and a clear question help most. Got a plain question with no code? Use the chat box on the right instead →</p>
+    </section>
+  </div>
+
+  <!-- RIGHT / BOTTOM: streaming output + chat -->
+  <div class="tilt-wrap">
+    <section class="panel glass output-panel" aria-label="Tutor response">
+      <div class="panel-title-row">
+        <h2><span class="title-icon">🧠</span> Sensei's Lesson</h2>
+        <span id="lesson-status" class="status-pill idle">Idle</span>
+      </div>
+
+      <div id="output" class="output-body">
+        <div class="empty-state">
+          <div class="mascot-stage" aria-hidden="true">
+            <div class="teacup">
+              <div class="steam s1"></div>
+              <div class="steam s2"></div>
+              <div class="steam s3"></div>
+              <div class="cup-body"></div>
+              <div class="cup-handle"></div>
+              <div class="cup-shine"></div>
+            </div>
+            <span class="sparkle-emoji">✨</span>
+          </div>
+          <p class="empty-title">Sensei is warming up the tea!</p>
+          <p class="empty-sub">Paste code on the left for a full lesson, or just <strong>ask a question below</strong> — no code needed.</p>
+        </div>
+      </div>
+
+      <div id="chat-thread" class="chat-thread"></div>
+
+      <div class="chat-label">💬 General questions — no code needed</div>
+      <form id="chat-form" class="chat-form">
+        <input id="chat-input" type="text" autocomplete="off"
+          placeholder="Ask CodeSensei anything — no code required..." />
+        <button type="submit" id="chat-send" aria-label="Send question">↑</button>
+      </form>
+    </section>
+  </div>
+
+</main>
+
+<footer class="foot-note">
+  Streaming live from Claude · keys never touch the browser
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
