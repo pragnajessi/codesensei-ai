@@ -26,6 +26,9 @@ const els = {
   chatSend: document.getElementById("chat-send"),
   hint: document.getElementById("input-hint"),
   themeToggle: document.getElementById("theme-toggle"),
+  uploadBtn: document.getElementById("upload-btn"),
+  codeFileInput: document.getElementById("code-file-input"),
+  uploadFilename: document.getElementById("upload-filename"),
 };
 
 marked.setOptions({ breaks: true });
@@ -38,7 +41,22 @@ marked.setOptions({ breaks: true });
    Once deployed for real (Render, Docker, your own domain) localStorage
    works normally and the theme choice sticks between visits.
    ================================================================= */
-
+const LARGE_FILE_WARN_CHARS = 60000;
+els.uploadBtn.addEventListener("click", () => els.codeFileInput.click());
+els.codeFileInput.addEventListener("change", () => {
+  const file = els.codeFileInput.files?.[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    const text = String(reader.result || "");
+    els.codeInput.value = text;
+    els.uploadFilename.textContent = `${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+    if (text.length > LARGE_FILE_WARN_CHARS) {
+      els.hint.textContent = "That's a big file — Sensei will summarize the overall structure first, then dig into the most important parts.";
+    }
+  };
+  reader.readAsText(file);
+});
 const THEME_KEY = "codesensei-theme";
 let memoryTheme = null; // in-memory fallback when storage is unavailable
 

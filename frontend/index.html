@@ -72,6 +72,11 @@
       </div>
 
       <label class="field-label" id="input-title" for="code-input">Paste your code below:</label>
+      <div class="upload-row">
+      <input type="file" id="code-file-input" accept=".py,.js,.jsx,.ts,.tsx,.java,.cpp,.c,.h,.cs,.go,.rb,.php,.html,.css,.txt,.json,.sql" hidden />
+      <button type="button" id="upload-btn" class="upload-btn">📁 Upload a code file</button>
+      <span id="upload-filename" class="upload-filename"></span>
+      </div>
       <textarea id="code-input" class="code-area" spellcheck="false"
         placeholder="def my_function():&#10;    # Paste your complex or buggy code here..."></textarea>
 

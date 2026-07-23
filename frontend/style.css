@@ -9,7 +9,7 @@
   --bg-1: #1a1233;
   --bg-2: #120e24;
   --bg-3: #241a3d;
-  --aurora-a: rgba(236, 72, 153, 0.20);
+  --aurora-a: rgba(79, 110, 247, 0.20);
   --aurora-b: rgba(168, 85, 247, 0.22);
   --aurora-c: rgba(56, 189, 248, 0.10);
 
@@ -22,11 +22,11 @@
   --text: #cfc9e8;
   --text-dim: #9a92c0;
 
-  --pink: #ec4899;
-  --purple: #a855f7;
+  --pink: #4F6EF7;
+  --purple: #b46bf8;
   --grad: linear-gradient(135deg, var(--pink), var(--purple));
   --glow: rgba(168, 85, 247, 0.45);
-  --glow-soft: rgba(236, 72, 153, 0.25);
+  --glow-soft: rgba(79, 110, 247, 0.25);
 
   --code-bg: rgba(10, 8, 20, 0.55);
   --input-bg: rgba(255, 255, 255, 0.045);
@@ -36,7 +36,7 @@
   --bg-1: #fdf2f8;
   --bg-2: #f3e8ff;
   --bg-3: #eef2ff;
-  --aurora-a: rgba(236, 72, 153, 0.16);
+  --aurora-a: rgba(79, 110, 247, 0.16);
   --aurora-b: rgba(168, 85, 247, 0.14);
   --aurora-c: rgba(56, 189, 248, 0.10);
 
@@ -49,11 +49,11 @@
   --text: #4d3f70;
   --text-dim: #8577a3;
 
-  --pink: #db2777;
-  --purple: #9333ea;
+  --pink: #3a64f9;
+  --purple: #b46bf8;
   --grad: linear-gradient(135deg, var(--pink), var(--purple));
   --glow: rgba(168, 85, 247, 0.28);
-  --glow-soft: rgba(236, 72, 153, 0.20);
+  --glow-soft: rgba(79, 110, 247, 0.20);
 
   --code-bg: rgba(255, 255, 255, 0.6);
   --input-bg: rgba(255, 255, 255, 0.55);
@@ -127,7 +127,7 @@ html, body {
 .cube .face {
   position: absolute;
   width: 74px; height: 74px;
-  background: linear-gradient(135deg, rgba(236,72,153,0.55), rgba(168,85,247,0.55));
+  background: linear-gradient(135deg, rgba(79, 110, 247, 0.55), rgba(168, 85, 247, 0.55));
   border: 1px solid rgba(255,255,255,0.5);
   border-radius: 10px;
   box-shadow: inset 0 0 18px rgba(255,255,255,0.25);
@@ -254,7 +254,7 @@ html, body {
   box-shadow: 0 0 8px #34d399;
 }
 .status-pill.idle .status-dot { background: var(--text-dim); box-shadow: none; }
-.status-pill.streaming .status-dot { background: #f472b6; box-shadow: 0 0 8px #f472b6; animation: pulse-dot 1s ease-in-out infinite; }
+.status-pill.streaming .status-dot { background: #60A5FA; box-shadow: 0 0 8px #60A5FA; animation: pulse-dot 1s ease-in-out infinite; }
 .status-pill.done .status-dot { background: #34d399; box-shadow: 0 0 8px #34d399; }
 @keyframes pulse-dot { 50% { opacity: 0.35; } }
 
@@ -355,7 +355,14 @@ html, body {
   color: #fff;
   box-shadow: 0 6px 16px -6px var(--glow);
 }
-
+.upload-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.upload-btn {
+  background: var(--input-bg); border: 1px solid var(--panel-border); color: var(--text);
+  font-size: 0.8rem; font-weight: 600; padding: 8px 14px; border-radius: 10px; cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.upload-btn:hover { border-color: var(--purple); color: var(--text-hi); }
+.upload-filename { font-size: 0.78rem; color: var(--text-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .code-area {
   width: 100%;
   min-height: 220px;
