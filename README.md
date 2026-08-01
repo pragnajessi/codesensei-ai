@@ -1,72 +1,112 @@
-# CodeSensei AI
+# 🤖 CodeSensei AI
 
-An interactive coding tutor and error-debugger, powered by Gemini, that streams its explanations token-by-token: mental models, "Use This, Not That" best practices, step-by-step logic with clean code, debugging notes, and a follow-up chat.
+CodeSensei AI is a lightweight, real-time AI code assistant web application built with a **FastAPI** backend and a clean **HTML/CSS/JS** frontend. It leverages Google’s Gemini API with Server-Sent Events (SSE) to stream real-time responses for code explanation, debugging, and optimization.
 
-## Stack
+---
 
-* **Frontend:** vanilla HTML/CSS/JS, streaming via fetch + ReadableStream, Markdown rendered with marked.js
-* **Backend:** Python 3.11, FastAPI, Server-Sent Events (SSE)
-* **LLM:** Google Gemini API (`google-genai` Python SDK), streaming enabled
-* **Container:** single Dockerfile, deployed to Render.com as a Docker web service
+## ✨ Features
 
-## Project structure
+- ⚡ **Real-Time Response Streaming**: Powered by Server-Sent Events (SSE) for zero delay.
+- 🐍 **FastAPI Backend**: Asynchronous and lightweight API engine.
+- 🎨 **Minimal & Modern UI**: Simple frontend without complex framework overhead.
+- 🐳 **Docker Ready**: Easy deployment using containerization.
+
+---
+
+## 🛠️ Tech Stack
+
+| Component  | Technology / Library |
+| :---       | :---                 |
+| **Backend** | Python 3.10+, FastAPI, Uvicorn, `google-genai` |
+| **Frontend** | HTML5, CSS3, Vanilla JavaScript (Fetch & EventSource API) |
+| **DevOps** | Docker, Git |
+
+---
+
+## 📁 Project Structure
 
 ```text
 codesensei-ai/
 ├── backend/
 │   ├── main.py           # FastAPI app, SSE streaming endpoint, Gemini integration
-│   ├── requirements.txt
-│   └── .env.example       # copy to .env locally, never commit the real one
+│   ├── requirements.txt  # Python dependencies
+│   └── .env     # Environment variables template
 ├── frontend/
-│   ├── index.html
-│   ├── style.css
-│   └── app.js
-├── Dockerfile
-├── .gitignore
-└── README.md
+│   ├── index.html        # Main web app page
+│   ├── style.css         # Styling and layouts
+│   └── app.js            # Client-side API integration & streaming logic
+├── Dockerfile            # Container configuration
+├── .gitignore            # Git exclusion rules
+└── README.md             # Project documentation
 ```
-## Run it locally
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- [Python 3.10+](https://www.python.org/) installed
+- A **Gemini API Key** from [Google AI Studio](https://aistudio.google.com/)
+
+---
+
+### 💻 Local Setup
+
+#### 1. Clone the Repository
+```bash
+git clone [https://github.com/your-username/codesensei-ai.git](https://github.com/your-username/codesensei-ai.git)
+cd codesensei-ai
+```
+
+#### 2. Set Up the Backend
+```bash
+# Navigate to the backend directory
+cd backend
+
+# Create and activate a virtual environment
+python -m venv .venv
+
+# On Linux/macOS:
+source .venv/bin/activate
+# On Windows:
+# .venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+#### 3. Configure Environment Variables
+Copy the example `.env` file and add your API key:
+```bash
+cp .env.example .env
+```
+Inside `.env`, set your API key:
+```env
+GEMINI_API_KEY=your_actual_gemini_api_key_here
+```
+
+#### 4. Run the Server
+```bash
+uvicorn main:app --reload --port 8000
+```
+The backend server will start at `http://127.0.0.1:8000`.
+
+#### 5. Open the Frontend
+Simply open `frontend/index.html` in your web browser (or serve it using Live Server in VS Code).
+
+---
+
+## 🐳 Docker Setup
+
+To run the application using Docker:
 
 ```bash
-cd backend
-cp .env.example .env
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-uvicorn main:app --reload --port 8000
-
-Open `http://localhost:8000` — the backend also serves the frontend directly, so there's nothing else to run.
-
-Get a Google Gemini API key at [https://aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey).
-
-## Run it with Docker
-
+# Build the Docker image
 docker build -t codesensei-ai .
-docker run -p 8000:8000 -e GEMINI_API_KEY=your-gemini-key-here codesensei-ai
 
-Then open `http://localhost:8000`.
+# Run the container
+docker run -d -p 8000:8000 --env-file backend/.env codesensei-ai
+```
 
-## Deploy to Render.com
-
-1. Push this folder to a GitHub repository.
-2. In Render, click **New** → **Web Service** and connect the repo.
-3. Set **Environment** to **Docker** (Render will detect the Dockerfile automatically).
-4. Under **Environment Variables**, add:
-* `GEMINI_API_KEY` = your real key
-* *(optional)* `GEMINI_MODEL` — defaults to `gemini-2.5-flash` if unset
-
-
-5. Click **Deploy**. Render builds the image and gives you a public HTTPS URL.
-
-Your API key lives only in Render's environment variables and your local `.env` — it's never sent to or stored in the browser, and `.gitignore` keeps it out of git.
-
-## How it works
-
-* You paste code (and, in Debug Error mode, a stack trace) and click the button.
-* The frontend POSTs to `/api/stream`. FastAPI builds the conversation history, configures the CodeSensei system instructions, and streams Gemini's response back as SSE events using the Gemini API SDK.
-* The browser renders each chunk as Markdown in real time, with a blinking cursor while streaming and one-click "Copy" buttons on every code block.
-* Once the first lesson finishes, a chat box appears below it — every follow-up question is sent along with the full conversation history so Gemini keeps context.
-
-## Customizing the tutor persona
-
-The system prompt lives in `backend/main.py` as `SYSTEM_PROMPT`. Edit it to change the response structure, tone, or add new sections.
+---
