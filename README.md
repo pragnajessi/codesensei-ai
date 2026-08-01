@@ -10,6 +10,8 @@ An interactive coding tutor and error-debugger, powered by Gemini, that streams 
 * **Container:** single Dockerfile, deployed to Render.com as a Docker web service
 
 ## Project structure
+
+```text
 codesensei-ai/
 ├── backend/
 │   ├── main.py           # FastAPI app, SSE streaming endpoint, Gemini integration
@@ -22,15 +24,16 @@ codesensei-ai/
 ├── Dockerfile
 ├── .gitignore
 └── README.md
-
+```
 ## Run it locally
 
+```bash
 cd backend
-cp .env.example .env        # then paste your real GEMINI_API_KEY into .env
-python -m venv .venv && source .venv/bin/activate   # optional but recommended
+cp .env.example .env
+python -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 uvicorn main:app --reload --port 8000
-
 
 Open `http://localhost:8000` — the backend also serves the frontend directly, so there's nothing else to run.
 
